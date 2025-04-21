@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌾 Agricultural Commodity Price Forecasting System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>🌾 Agricultural Commodity Price Forecasting System</h2>
+        <form method="POST" action="/predict">
+            <label>Year:</label>
+            <input type="number" name="year" min="2024" required>
+
+            <label>Month:</label>
+            <select name="month" required>
+                {% for month in months %}
+                    <option value="{{ month }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Arrivals (in Qtl):</label>
+            <input type="number" step="any" name="arrivals" min="1.00" required>
+
+            <label>Commodity:</label>
+            <select name="commodity" required>
+                {% for c in commodities %}
+                    <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="Predict Price">
+        </form>
+
+        {% if prediction %}
+            <div class="result">{{ prediction }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
